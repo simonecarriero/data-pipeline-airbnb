@@ -1,0 +1,11 @@
+dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: "{{ env_var('GOOGLE_PROJECT') }}"
+      dataset: airbnb
+      threads: 4
+      keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}" 
+      OPTIONAL_CONFIG: VALUE

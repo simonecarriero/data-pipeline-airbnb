@@ -1,0 +1,25 @@
+services:
+  dagster:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    volumes:
+      - ./dbt/:/app/dbt/
+      - ${GOOGLE_APPLICATION_CREDENTIALS}:/app/credentials.json
+    ports:
+        - "3000:3000"
+    environment:
+      - GOOGLE_PROJECT
+      - GOOGLE_BUCKET_NAME
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials.json
+  metabase:
+    image: metabase/metabase
+    restart: always
+    ports:
+      - "12345:3000"
+    volumes:
+      - ./metabase.db.mv.db:/metabase.db/metabase.db.mv.db
+    environment:
+      - GOOGLE_PROJECT
+      - GOOGLE_BUCKET_NAME

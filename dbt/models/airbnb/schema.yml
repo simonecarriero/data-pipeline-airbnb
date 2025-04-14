@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: staging
+    database: "{{ env_var('GOOGLE_PROJECT') }}"
+    schema: airbnb
+    tables:
+      - name: staging_listings
+        meta:
+          dagster:
+            asset_key: ["staging_listings"]
+      - name: staging_reviews
+        meta:
+          dagster:
+            asset_key: ["staging_reviews"]
